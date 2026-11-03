@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#000000">
+<title>Euverify – The Global Market Adventure</title>
+<link rel="icon" href="assets/euverify-icon.png" type="image/png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/app-icon-180.png">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Euverify Game">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Press+Start+2P&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!--GAME-MARKUP-START-->
+<div class="page">
+  <div class="shell" id="shell">
+    <div class="stage" id="stage">
+      <canvas id="game" width="960" height="520" aria-label="Euverify – The Global Market Adventure"></canvas>
+
+      <!-- HUD -->
+      <div class="hud" id="hud" hidden>
+        <div class="hud-row">
+          <div class="hud-level"><canvas id="hudFlag" width="48" height="32"></canvas><div><span id="hudLevelNo">LEVEL 1</span><b id="hudCountry">India</b></div></div>
+          <div class="hud-cell"><span>Score</span><b id="hudScore">000000</b></div>
+          <div class="hud-cell"><span>Lives</span><b id="hudLives">×3</b></div>
+          <div class="hud-cell"><span>Health</span><b id="hudHearts" class="hearts"></b></div>
+          <div class="hud-cell"><span>Strength</span><b class="bar" id="hudStrength"></b></div>
+          <div class="hud-cell"><span>Docs</span><b id="hudDocs">0/0</b></div>
+          <div class="hud-cell"><span>Time</span><b id="hudTime">300</b></div>
+          <div class="hud-cell power"><canvas id="portrait" width="96" height="96"></canvas><div><span>Euverify power</span><b id="hudPower" class="chips">OFF</b></div></div>
+          <div class="hud-btns">
+            <button type="button" id="btnFull" class="icon-btn" aria-label="Full screen">⛶</button>
+            <button type="button" id="btnMusic" class="icon-btn" aria-label="Toggle music">♪</button>
+            <button type="button" id="btnPause" class="icon-btn" aria-label="Pause">II</button>
+          </div>
+        </div>
+        <div class="progress" aria-label="Level progress"><i id="hudProgress"></i></div>
+      </div>
+
+      <!-- story + info -->
+      <div class="story" id="story" hidden></div>
+      <div class="info-card" id="infoCard" hidden><span class="info-kicker" id="infoKicker">Document collected</span><b id="infoTitle"></b><p id="infoText"></p></div>
+      <div class="timer-pill" id="timerPill" hidden></div>
+      <div class="banner" id="banner" hidden>
+        <canvas id="bannerHero" width="180" height="180"></canvas>
+        <strong id="bannerTitle">EUVERIFY POWER ACTIVATED!</strong>
+        <small id="bannerSub">Euverify costume on · Strength up</small>
+      </div>
+      <div class="toast" id="toast" hidden></div>
+      <div class="welcome" id="welcome" hidden><canvas id="welcomeFlag" width="120" height="80"></canvas><strong id="welcomeText">WELCOME</strong><span id="welcomeSub"></span></div>
+
+      <!-- map cinematic caption -->
+      <div class="map-caption" id="mapCaption" hidden><span id="mapKicker"></span><strong id="mapTitle"></strong></div>
+      <button type="button" class="skip" id="btnSkip" hidden>Skip ›</button>
+
+      <!-- start -->
+      <div class="screen" id="startScreen">
+        <div class="screen-card start-card">
+          <div class="start-copy">
+            <img class="brand-word" data-logo="word" alt="Euverify" width="680" height="140">
+            <h1 class="title">THE GLOBAL MARKET ADVENTURE</h1>
+            <p class="subtitle">Build. Expand. Navigate Compliance. Go Global.</p>
+            <div class="btn-col">
+              <button type="button" class="btn primary" id="btnStart">START YOUR JOURNEY</button>
+              <div class="btn-row">
+                <button type="button" class="btn" id="btnHow">HOW TO PLAY</button>
+                <button type="button" class="btn" id="btnAbout">ABOUT EUVERIFY</button>
+              </div>
+            </div>
+          </div>
+          <div class="start-map">
+            <canvas id="previewMap" width="520" height="360" aria-label="Map of the journey from India to the UK and the EU"></canvas>
+            <ol class="route-legend"><li><i class="f in"></i>India</li><li><i class="f gb"></i>United Kingdom</li><li><i class="f eu"></i>European Union</li></ol>
+          </div>
+        </div>
+      </div>
+
+      <!-- how to play -->
+      <div class="screen" id="howScreen" hidden>
+        <div class="screen-card wide">
+          <h2>How to play</h2>
+          <div class="how-grid">
+            <div>
+              <h3>Controls</h3>
+              <table>
+                <tr><td><kbd>A</kbd> <kbd>←</kbd> · <b>◀</b></td><td>Move left</td></tr>
+                <tr><td><kbd>D</kbd> <kbd>→</kbd> · <b>▶</b></td><td>Move right</td></tr>
+                <tr><td><kbd>Space</kbd> <kbd>↑</kbd> · <b>JUMP</b></td><td>Jump · again in the air to double jump</td></tr>
+                <tr><td><kbd>Shift</kbd> · <b>RUN</b></td><td>Sprint</td></tr>
+                <tr><td><kbd>P</kbd> <kbd>Esc</kbd></td><td>Pause · <kbd>M</kbd> music</td></tr>
+              </table>
+              <h3>Your journey</h3>
+              <table class="levels">
+                <tr><td>1</td><td><b>India</b> · Easy. Get your product and export plan ready.</td></tr>
+                <tr><td>2</td><td><b>United Kingdom</b> · Medium. Clear the UK compliance checkpoints.</td></tr>
+                <tr><td>3</td><td><b>European Union</b> · Hard. Moving platforms, timed checkpoints, hidden documents.</td></tr>
+              </table>
+            </div>
+            <div>
+              <h3>Collect</h3>
+              <ul class="pu">
+                <li><i class="dot doc"></i><b>Documents</b> Each one shows an info card. Checkpoint gates open when you have the documents they ask for.</li>
+                <li><i class="dot can"></i><b>Hazard canisters</b> Fictional items. Secure them for +1 strength.</li>
+                <li><i class="dot eu"></i><b>Euverify power</b> From the Euverify guide and boxes: Euverify costume, Compliance Shield and Documentation Power.</li>
+              </ul>
+              <h3>Euverify abilities</h3>
+              <table class="unlocks">
+                <tr><td>🛡</td><td><b>Compliance Shield</b> blocks one hit, then recharges</td></tr>
+                <tr><td>📄</td><td><b>Documentation Power</b> smashes paperwork barriers</td></tr>
+                <tr><td>🔍</td><td><b>Technical File Scanner</b> reveals hidden documents (EU)</td></tr>
+                <tr><td>💡</td><td><b>Knowledge Boost</b> doubles document points (EU)</td></tr>
+              </table>
+            </div>
+          </div>
+          <div class="btn-row left"><button type="button" class="btn primary" id="btnHowPlay">START YOUR JOURNEY</button><button type="button" class="btn" id="btnHowBack">Back</button></div>
+        </div>
+      </div>
+
+      <!-- about -->
+      <div class="screen" id="aboutScreen" hidden>
+        <div class="screen-card wide about">
+          <img class="brand-mini" data-logo="word" alt="Euverify" width="680" height="140">
+          <h2>Your Compliance Partner in the EU &amp; UK</h2>
+          <p>Euverify is a compliance platform for businesses that sell products in the European Union and the United Kingdom without a local presence. It brings your products, documents and representation into one place.</p>
+          <table>
+            <tr><td><b>EU &amp; UK representation</b></td><td>Authorised Representative and Responsible Person services, with an EU &amp; UK address within 24 hours.</td></tr>
+            <tr><td><b>Product documentation</b></td><td>Technical files, risk assessments and Declaration of Conformity tools for CE and UKCA products.</td></tr>
+            <tr><td><b>Specialist areas</b></td><td>GPSR, cosmetics (CPSR, PIF, CPNP/SCPN), packaging (PPWR), medical devices and GDPR Article 27 representation.</td></tr>
+            <tr><td><b>Offices</b></td><td>London, United Kingdom · Cork, Ireland</td></tr>
+          </table>
+          <p class="small">Euverify helps you prepare and manage your compliance documentation. Responsibility for your product's compliance stays with the manufacturer, and no service can guarantee market approval.</p>
+          <div class="btn-row left"><button type="button" class="btn primary" id="btnAboutPlay">START YOUR JOURNEY</button><button type="button" class="btn" id="btnAboutBack">Back</button></div>
+        </div>
+      </div>
+
+      <!-- pause -->
+      <div class="screen" id="pauseScreen" hidden>
+        <div class="screen-card small-card">
+          <h2>Paused</h2>
+          <div class="btn-row"><button type="button" class="btn primary" id="btnResume">Resume</button><button type="button" class="btn" id="btnPauseRetry">Restart country</button><button type="button" class="btn" id="btnPauseMenu">Main menu</button></div>
+        </div>
+      </div>
+
+      <!-- game over -->
+      <div class="screen" id="overScreen" hidden>
+        <div class="screen-card small-card">
+          <img class="brand-mini" data-logo="word" alt="Euverify" width="680" height="140">
+          <p class="kicker">Out of lives</p>
+          <h2>Game Over</h2>
+          <p class="big-score" id="overScore">0</p>
+          <button type="button" class="btn offer" id="btnClaimOver">🎁 Claim 5% off · every player wins</button>
+          <div class="btn-row"><button type="button" class="btn primary" id="btnRetry">Retry this country</button><button type="button" class="btn" id="btnOverMenu">Main menu</button></div>
+        </div>
+      </div>
+
+      <!-- final -->
+      <div class="final" id="finalScreen" hidden>
+        <div class="final-card">
+          <strong>FROM INDIA TO THE WORLD.<br>YOUR GLOBAL JOURNEY STARTS WITH THE RIGHT COMPLIANCE PARTNER.</strong>
+          <span>Euverify – Your Compliance Partner in the EU &amp; UK.</span>
+          <p id="finalScore"></p>
+          <div class="btn-row"><button type="button" class="btn offer" id="btnClaimWin">🏆 Claim your 10% winner discount</button><button type="button" class="btn primary" id="btnPlayAgain">PLAY AGAIN</button></div>
+        </div>
+      </div>
+
+      <!-- discount claim -->
+      <div class="screen claim" id="claimScreen" hidden>
+        <div class="screen-card claim-card">
+          <div class="claim-badge"><span id="claimWho">Winner reward</span><strong id="claimPct">10%</strong><small>off your first year</small></div>
+          <form id="claimForm" novalidate>
+            <img class="brand-mini" data-logo="word" alt="Euverify" width="680" height="140">
+            <p class="claim-lead" id="claimLead"></p>
+            <label for="claimCompany">Company name</label>
+            <input id="claimCompany" name="company" type="text" autocomplete="organization" maxlength="120" required>
+            <label for="claimCategory">Product category</label>
+            <select id="claimCategory" name="category" required>
+              <option value="">Choose a category</option>
+              <option>Cosmetics &amp; personal care</option>
+              <option>Electronics &amp; electrical</option>
+              <option>Toys &amp; children's products</option>
+              <option>Textiles &amp; apparel</option>
+              <option>Home, kitchen &amp; furniture</option>
+              <option>Chemicals &amp; coatings</option>
+              <option>Packaging</option>
+              <option>Machinery &amp; tools</option>
+              <option>Medical devices</option>
+              <option>Food contact materials</option>
+              <option>Other</option>
+            </select>
+            <label for="claimEmail">Email</label>
+            <input id="claimEmail" name="email" type="email" autocomplete="email" inputmode="email" maxlength="160" required>
+            <label class="consent"><input id="claimConsent" type="checkbox"> <span>Euverify can email me my discount and follow up about its EU &amp; UK compliance services. I can unsubscribe at any time.</span></label>
+            <p class="claim-err" id="claimErr" role="alert"></p>
+            <div class="btn-row left"><button type="submit" class="btn primary" id="btnClaimSubmit">Claim my discount</button><button type="button" class="btn" id="btnClaimCancel">Cancel</button></div>
+            <p class="small">Discount applies to your first year of a Euverify plan and is confirmed by the Euverify team. One claim per company.</p>
+          </form>
+          <div class="claim-done" id="claimDoneBox" hidden>
+            <p class="kicker">Discount claimed</p>
+            <h2 id="claimDonePct">10% off your first year</h2>
+            <p>Your claim code</p>
+            <div class="claim-code" id="claimCode">EV-XXXXXX</div>
+            <p id="claimDoneMsg"></p>
+            <button type="button" class="btn primary" id="btnClaimDone">Done</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- touch controls -->
+      <div class="touch" id="touch" hidden>
+        <div class="touch-left">
+          <button type="button" class="tbtn" data-k="left" aria-label="Move left">◀</button>
+          <button type="button" class="tbtn" data-k="right" aria-label="Move right">▶</button>
+        </div>
+        <div class="touch-right">
+          <button type="button" class="tbtn small" data-k="sprint" aria-label="Sprint">RUN</button>
+          <button type="button" class="tbtn jump" data-k="jump" aria-label="Jump">JUMP</button>
+        </div>
+      </div>
+
+      <!-- phone launch: one tap to go full screen (browsers only allow full screen after a tap) -->
+      <div class="fs-gate" id="fsGate" hidden>
+        <img class="brand-word" data-logo="wordWhite" alt="Euverify" width="680" height="140">
+        <strong>THE GLOBAL MARKET ADVENTURE</strong>
+        <button type="button" class="btn primary fs-go" id="btnFsGo">⛶ TAP TO PLAY FULL SCREEN</button>
+        <span id="fsNote">Your phone will switch to landscape</span>
+        <button type="button" class="btn fs-install" id="btnInstall" hidden>⬇ Install as app (full screen)</button>
+        <p class="fs-tip" id="fsTip" hidden>On iPhone: tap <b>Share</b> then <b>Add to Home Screen</b>, and open the game from your home screen to play full screen.</p>
+      </div>
+      <button type="button" class="fs-pill" id="fsPill" hidden>⛶ Back to full screen</button>
+
+      <div class="rotate" id="rotate">
+        <div class="rotate-phone" aria-hidden="true"></div>
+        <strong>Turn your phone sideways</strong>
+        <span>The Global Market Adventure plays in landscape</span>
+      </div>
+    </div>
+  </div>
+  <p class="foot">Euverify · Your Compliance Partner in the EU &amp; UK · Original game art and music. Hazard canisters are fictional game items. Information cards are simplified; check the rules that apply to your product.</p>
+</div>
+<!-- iPhone: Safari has no full-screen API, but it hides its bars when the page is swiped up -->
+<div class="ios-swipe" id="iosSwipe" hidden>
+  <div class="ios-hand" aria-hidden="true"><i></i><b>☝</b></div>
+  <strong>SWIPE UP TO PLAY FULL SCREEN</strong>
+  <span>This hides Safari's address bar</span>
+  <button type="button" class="ios-skip" id="btnIosSkip">Play without full screen</button>
+  <p class="ios-tip">Best experience: tap <b>Share</b> then <b>Add to Home Screen</b> and open the game from your home screen.</p>
+</div>
+<div class="ios-spacer" aria-hidden="true"></div>
+<!--GAME-MARKUP-END-->
+<script src="logos.js"></script>
+<script src="worldmap.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
