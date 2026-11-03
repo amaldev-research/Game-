@@ -160,18 +160,25 @@ function paintFlag(c, key, w, h) {
     for (let i = 0; i < 24; i++) { const a = i * TAU / 24; c.beginPath(); c.moveTo(cx, cy); c.lineTo(cx + Math.cos(a) * r, cy + Math.sin(a) * r); c.stroke(); }
     c.fillStyle = '#000080'; c.beginPath(); c.arc(cx, cy, r * 0.2, 0, TAU); c.fill();
   } else if (key === 'GB') {
-    c.fillStyle = '#012169'; c.fillRect(0, 0, w, h);
-    c.save(); c.beginPath(); c.rect(0, 0, w, h); c.clip();
-    c.strokeStyle = '#FFFFFF'; c.lineWidth = h * 0.2;
-    c.beginPath(); c.moveTo(0, 0); c.lineTo(w, h); c.moveTo(w, 0); c.lineTo(0, h); c.stroke();
-    c.strokeStyle = '#C8102E'; c.lineWidth = h * 0.066;
-    // counterchanged red diagonals (offset per quadrant)
-    const o = h * 0.033;
-    c.beginPath(); c.moveTo(0, -o); c.lineTo(w / 2, h / 2 - o); c.moveTo(w / 2, h / 2 + o); c.lineTo(w, h + o);
-    c.moveTo(w, -o + 0); c.lineTo(w / 2 + o * 1.5, h / 2 - o * 0); c.moveTo(w / 2 - o * 1.5, h / 2); c.lineTo(0, h); c.stroke();
+    // Union Flag drawn on the official 60×30 grid (same geometry as the reference SVG),
+    // including the counterchanged red saltire.
+    c.save(); c.scale(w / 60, h / 30);
+    c.beginPath(); c.rect(0, 0, 60, 30); c.clip();
+    c.fillStyle = '#012169'; c.fillRect(0, 0, 60, 30);
+    const saltire = () => { c.beginPath(); c.moveTo(0, 0); c.lineTo(60, 30); c.moveTo(60, 0); c.lineTo(0, 30); };
+    c.strokeStyle = '#FFFFFF'; c.lineWidth = 6; saltire(); c.stroke();
+    c.save();
+    c.beginPath();
+    c.moveTo(30, 15); c.lineTo(60, 15); c.lineTo(60, 30); c.closePath();
+    c.moveTo(30, 15); c.lineTo(30, 30); c.lineTo(0, 30); c.closePath();
+    c.moveTo(30, 15); c.lineTo(0, 15); c.lineTo(0, 0); c.closePath();
+    c.moveTo(30, 15); c.lineTo(30, 0); c.lineTo(60, 0); c.closePath();
+    c.clip();
+    c.strokeStyle = '#C8102E'; c.lineWidth = 4; saltire(); c.stroke();
     c.restore();
-    c.fillStyle = '#FFFFFF'; c.fillRect(w / 2 - h / 6, 0, h / 3, h); c.fillRect(0, h / 2 - h / 6, w, h / 3);
-    c.fillStyle = '#C8102E'; c.fillRect(w / 2 - h / 10, 0, h / 5, h); c.fillRect(0, h / 2 - h / 10, w, h / 5);
+    c.fillStyle = '#FFFFFF'; c.fillRect(25, 0, 10, 30); c.fillRect(0, 10, 60, 10);
+    c.fillStyle = '#C8102E'; c.fillRect(27, 0, 6, 30); c.fillRect(0, 12, 60, 6);
+    c.restore();
   } else if (key === 'EU') {
     c.fillStyle = '#003399'; c.fillRect(0, 0, w, h);
     c.fillStyle = '#FFCC00';
@@ -2215,6 +2222,7 @@ window.addEventListener('orientationchange', () => setTimeout(onResize, 250));
 if (window.ResizeObserver) new ResizeObserver(fitCanvas).observe($('stage'));
 fitCanvas();
 
+document.querySelectorAll('[data-flag]').forEach(el => { try { el.style.backgroundImage = 'url(' + flagImage(el.dataset.flag).toDataURL() + ')'; } catch (e) {} });
 /* --------------------------------------------- start-screen map preview */
 const pv = $('previewMap'), pctx = pv.getContext('2d');
 function drawPreview(t) {
