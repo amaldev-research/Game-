@@ -356,11 +356,11 @@ const DOCS = {
 
 /* =============================================================== LEVELS */
 const LEVELS = [
-  { key: 'IN', name: 'India', title: 'INDIA: THE BUSINESS BEGINS', theme: 'india', cols: 150, time: 300, speed: 0.7, tune: 0,
+  { key: 'IN', name: 'India', title: 'INDIA: THE BUSINESS BEGINS', theme: 'india', cols: 70, time: 35, speed: 0.7, tune: 0,
     welcome: 'INDIA: THE BUSINESS BEGINS', welcomeSub: 'Your business journey begins in India!', build: buildIndia },
-  { key: 'GB', name: 'United Kingdom', title: 'UK: THE COMPLIANCE CHALLENGE', theme: 'uk', cols: 190, time: 260, speed: 1.0, tune: 1,
+  { key: 'GB', name: 'United Kingdom', title: 'UK: THE COMPLIANCE CHALLENGE', theme: 'uk', cols: 85, time: 35, speed: 1.0, tune: 1,
     welcome: 'WELCOME TO THE UNITED KINGDOM!', welcomeSub: 'The compliance challenge', build: buildUK },
-  { key: 'EU', name: 'European Union', title: 'EU: THE GLOBAL COMPLIANCE MISSION', theme: 'eu', cols: 220, time: 240, speed: 1.35, tune: 2,
+  { key: 'EU', name: 'European Union', title: 'EU: THE GLOBAL COMPLIANCE MISSION', theme: 'eu', cols: 95, time: 35, speed: 1.35, tune: 2,
     welcome: 'WELCOME TO THE EUROPEAN MARKET!', welcomeSub: 'The global compliance mission', build: buildEU }
 ];
 
@@ -403,85 +403,59 @@ const B = {
   finish(tx, kind, label) { finish = { x: tx * T, kind, label }; }
 };
 
+// Each level is laid out for about 30 seconds of play (35-second clock).
 function buildIndia() {
   newWorld(LEVELS[0].cols);
-  B.ground(0, 40);
+  B.ground(0, 30);
   B.story(1, 'Your business journey begins in India!');
   B.sign(2.2, 'START →'); B.flag(5);
-  [6, 7, 8].forEach(x => B.item('seal', x, 9));
-  B.box(10, 7, 'seal');
-  B.doc('spec', 12, 9);
-  B.row(14, 16, 7, 'B'); B.box(15, 7, 'canister');
-  B.item('box', 18, 10); B.enemy('blob', 20);
-  B.pipe(24, 2); B.item('canister', 27, 10); B.enemy('blob', 30);
-  B.item('box', 33, 10); B.doc('plan', 36, 9);
-  B.flag(38);
-  [41, 42].forEach(x => B.item('seal', x, 7));
-  B.ground(43, 80);
-  B.row(46, 49, 8, 'S'); [46, 47, 48, 49].forEach(x => B.item('seal', x, 7));
-  B.item('box', 52, 10); B.item('canister', 54, 10);
-  B.hidden(56, 7, 'life');
-  B.doc('test', 59, 9); B.respawn(60);
-  B.story(60, 'Your product is ready. Are you ready for global markets?');
-  B.sign(64.2, 'EXPORT CHECK');
-  B.gate(68, ['spec', 'plan'], 'EXPORT READINESS CHECK');
-  B.flag(70); B.enemy('blob', 74); B.item('box', 77, 10);
-  B.plat(81, 9, 2, 1.2, 0, 4.5);
-  B.ground(85, 130);
-  B.pipe(90, 3); B.enemy('blob', 95);
-  B.row(98, 102, 7, 'B'); B.box(100, 7, 'canister'); B.box(98, 7, 'seal');
-  B.item('box', 104, 10); B.enemy('blob', 106); B.flag(108);
-  [110, 111, 112].forEach(x => B.item('seal', x, 9));
-  B.stairsUp(114, 4); B.ground(131, 149);
-  [118, 119, 120].forEach(x => B.item('seal', x, 6));
-  B.respawn(121); B.story(121, 'Your next destination: United Kingdom!');
-  B.item('box', 124, 10); B.enemy('blob', 127); B.flag(132);
-  B.guide(136, 8.4, 'none', ['Great start! I’m your Euverify guide.', 'The UK has its own rules. See you there!']);
-  B.finish(142, 'gateway', 'INTERNATIONAL EXPORT GATEWAY');
+  [10, 11, 12].forEach(x => B.item('seal', x, 9));
+  B.box(13, 7, 'seal');
+  B.doc('spec', 15, 10);
+  B.row(17, 19, 7, 'B'); B.box(18, 7, 'canister');
+  B.enemy('blob', 22);
+  B.pipe(25, 2);
+  B.doc('plan', 29, 10);
+  B.item('seal', 31, 7); B.item('seal', 32, 7);
+  B.ground(33, 69);
+  B.story(34, 'Your product is ready. Are you ready for global markets?');
+  B.doc('test', 36, 10); B.respawn(37); B.flag(39);
+  B.gate(42, ['spec', 'plan'], 'EXPORT READINESS CHECK');
+  B.item('canister', 44, 10); B.enemy('blob', 47); B.item('box', 49, 10);
+  [50, 51, 52].forEach(x => B.item('seal', x, 8));
+  B.flag(53);
+  B.story(54, 'Your next destination: United Kingdom!');
+  B.guide(57, 8.4, 'none', ['Great start! I’m your Euverify guide.', 'The UK has its own rules. See you there!']);
+  B.finish(62, 'gateway', 'INTERNATIONAL EXPORT GATEWAY');
 }
 
 function buildUK() {
   newWorld(LEVELS[1].cols);
-  B.ground(0, 24);
+  B.ground(0, 36);
   B.story(1, 'Expanding into the UK requires the right compliance documentation.');
   B.flag(3);
   B.guide(11.5, 9.3, 'costume', ['Hi! I’m your Euverify guide.', 'Take my power-up: Compliance Shield and Documentation Power!', 'Collect the documents each checkpoint asks for.']);
-  B.doc('ukTech', 15, 9);
-  B.enemy('paper', 18, 7, 3);
-  B.row(19, 21, 7, 'B'); B.doc('ukRisk', 22, 8);
-  B.ground(28, 60);
-  B.item('seal', 25, 8); B.item('seal', 26, 7); B.item('seal', 27, 8);
-  B.doc('ukLabel', 32, 9); B.enemy('blob', 36); B.item('canister', 39, 10);
-  B.enemy('bot', 44); B.flag(46);
-  B.sign(45.5, 'MISSING DOCS!');
-  B.barrier(48);
-  B.story(50, 'Missing documents? Don’t let them stop your business!');
-  B.respawn(52);
-  B.gate(56, ['ukTech', 'ukRisk', 'ukLabel'], 'UK PRODUCT SAFETY CHECKPOINT');
-  B.plat(61, 9, 2, 2, 0, 4);
-  B.ground(65, 110);
-  B.pipe(70, 3); B.item('canister', 68, 10); B.enemy('paper', 74, 6, 3);
-  B.row(76, 80, 7, 'B'); B.box(77, 7, 'badge'); B.box(79, 7, 'canister');
-  B.enemy('bot', 82); B.item('canister', 86, 10); B.enemy('paper', 84, 8, 2);
-  B.doc('ukDoc', 90, 8); B.flag(92);
-  B.row(95, 97, 8, 'S'); B.doc('ukca', 96, 7);
-  B.story(100, 'Euverify helps businesses navigate UK compliance requirements.');
-  B.doc('ukRp', 104, 9); B.respawn(102);
-  B.gate(108, ['ukDoc', 'ukca', 'ukRp'], 'UKCA & UK RESPONSIBLE PERSON CHECKPOINT');
-  B.plat(111, 9, 2, 3, 0, 4.5);
-  B.ground(116, 150);
-  B.spikes(120, 121); B.enemy('paper', 125, 7, 3); B.enemy('blob', 128);
-  B.hidden(130, 7, 'life'); B.enemy('paper', 133, 8, 2);
-  B.row(136, 140, 7, 'B'); B.box(138, 7, 'seal'); B.box(140, 7, 'canister');
-  B.enemy('blob', 141); B.flag(143); B.respawn(144);
-  B.story(145, 'Get the right documentation and move forward!');
-  B.plat(151, 8, 2, 0, 2, 3.5); B.plat(153, 9, 1.5, 0, -2, 3.5);
-  B.ground(155, 189);
-  B.enemy('bot', 160); B.enemy('paper', 165, 7, 3);
-  [162, 163, 164].forEach(x => B.item('seal', x, 9));
-  B.stairsUp(170, 4); [170, 171, 172, 173].forEach((x, i) => B.item('seal', x, 9 - i));
-  B.flag(177);
-  B.finish(182, 'border', 'EU BORDER GATEWAY');
+  B.doc('ukTech', 15, 10);
+  B.enemy('paper', 18, 7, 2);
+  B.row(19, 21, 7, 'B'); B.doc('ukRisk', 22, 10);
+  B.doc('ukLabel', 26, 10);
+  B.sign(26.6, 'MISSING DOCS!');
+  B.barrier(29);
+  B.story(30, 'Missing documents? Don’t let them stop your business!');
+  B.respawn(31);
+  B.gate(34, ['ukTech', 'ukRisk', 'ukLabel'], 'UK PRODUCT SAFETY CHECKPOINT');
+  B.plat(37, 9, 2, 2, 0, 3.4);
+  B.ground(41, 84);
+  B.doc('ukDoc', 44, 10); B.enemy('bot', 47);
+  B.row(49, 51, 8, 'S'); [49, 50, 51].forEach(x => B.item('seal', x, 7)); B.doc('ukca', 50, 10);
+  B.set(52, 7, 'B'); B.box(53, 7, 'canister'); B.set(54, 7, 'B');
+  B.story(55, 'Euverify helps businesses navigate UK compliance requirements.');
+  B.doc('ukRp', 57, 10); B.respawn(58);
+  B.gate(61, ['ukDoc', 'ukca', 'ukRp'], 'UKCA & UK RESPONSIBLE PERSON CHECKPOINT');
+  B.enemy('paper', 65, 7, 2); B.spikes(67, 68); B.enemy('blob', 70);
+  B.story(72, 'Get the right documentation and move forward!');
+  B.flag(74);
+  B.finish(78, 'border', 'EU BORDER GATEWAY');
 }
 
 function buildEU() {
@@ -490,56 +464,33 @@ function buildEU() {
   B.story(1, 'Entering the European market requires preparation.');
   B.flag(3);
   B.guide(10.5, 9.3, 'scanner', ['Welcome to the EU!', 'Here’s my Technical File Scanner: it finds hidden documents.', 'Knowledge Boost on: documents now score double!']);
-  B.doc('techFile', 13, 9); B.enemy('paper', 15, 7, 3);
-  B.doc('euRisk', 18, 8);
-  B.plat(21, 9, 1.5, 2, 0, 3.4);
-  B.ground(25, 34);
-  B.row(27, 28, 8, 'S'); B.doc('laws', 28, 7);
-  B.enemy('bot', 32); B.enemy('paper', 30, 6, 2);
-  B.story(30, 'Understand the regulations applicable to your product.');
-  B.plat(35, 9, 1.5, 3, 0, 3.6);
-  B.ground(40, 52);
-  B.doc('hs1', 45, 5, true); B.row(44, 46, 6, 'S');
-  B.respawn(47);
-  B.gate(50, ['techFile', 'euRisk', 'laws'], 'TECHNICAL FILE CHECKPOINT');
-  B.plat(53, 9, 1.5, 4, 0, 3.8);
-  B.ground(59, 80);
-  B.item('canister', 61, 10);
-  B.row(64, 68, 7, 'B'); B.box(66, 7, 'badge'); B.box(64, 7, 'seal');
-  B.enemy('blob', 68); B.item('canister', 70, 10); B.enemy('bot', 72); B.enemy('paper', 74, 7, 3);
-  B.doc('euDoc', 74, 8); B.enemy('bot', 77); B.doc('ce', 79, 9); B.flag(76);
-  B.respawn(81);
-  B.sign(81.2, 'TIMED CHECK!');
-  B.timedGate(96, 83, 10, 'TIMED COMPLIANCE CHECK');
-  B.ground(81, 84);
-  B.plat(85, 9, 1.5, 2.5, 0, 2.8);
-  B.col(89, 9, 10, 'S'); B.set(89, 11, 'G'); B.set(89, 12, 'G');
-  B.plat(90, 8, 1.5, 0, 2, 2.6);
-  B.ground(92, 100);
-  B.doc('euAr', 99, 9);
-  B.story(101, 'Keep your technical documentation organised.');
-  B.ground(101, 118);
-  B.doc('hs2', 108, 4, true); B.row(107, 109, 5, 'S'); B.row(104, 105, 8, 'S');
-  B.enemy('paper', 110, 7, 3); B.enemy('bot', 112); B.respawn(113);
-  B.gate(116, ['euDoc', 'ce', 'euAr'], 'MARKET ACCESS CHECKPOINT');
-  B.plat(119, 9, 1.5, 2, 0, 3); B.plat(122, 8, 1.5, 0, 2, 3);
-  B.ground(125, 160);
-  B.enemy('paper', 130, 7, 3); B.enemy('bot', 135); B.enemy('paper', 138, 8, 2);
-  B.spikes(140, 141); B.enemy('blob', 143); B.flag(145); B.respawn(146);
-  B.row(147, 151, 7, 'B'); B.box(149, 7, 'canister'); B.box(151, 7, 'seal');
-  B.enemy('paper', 150, 6, 3);
-  B.story(152, 'Euverify helps businesses manage their EU and UK compliance documentation journey.');
-  B.sign(153.5, 'MISSING DOCS!');
-  B.barrier(156); B.doc('euLabel', 158, 9);
-  B.plat(161, 9, 1.5, 3, 0, 3.2);
-  B.ground(166, 219);
-  B.respawn(168);
-  B.gate(172, ['euLabel'], 'LABELLING CHECKPOINT');
-  B.enemy('bot', 178); B.doc('hs3', 180, 6, true); B.row(179, 181, 7, 'S');
-  B.enemy('paper', 183, 7, 3); B.enemy('bot', 188); B.flag(184);
-  B.stairsUp(190, 4); [190, 191, 192, 193].forEach((x, i) => B.item('seal', x, 9 - i));
-  B.flag(198);
-  B.finish(206, 'portal', 'GLOBAL MARKET SUCCESS');
+  B.doc('techFile', 13, 10); B.enemy('paper', 15, 7, 2);
+  B.doc('euRisk', 17, 10);
+  B.plat(21, 9, 1.5, 2, 0, 3.2);
+  B.ground(25, 36);
+  B.row(27, 28, 8, 'S'); [27, 28].forEach(x => B.item('seal', x, 7)); B.doc('laws', 28, 10);
+  B.story(29, 'Understand the regulations applicable to your product.');
+  B.enemy('bot', 31);
+  B.row(32, 34, 6, 'S'); B.doc('hs1', 33, 5, true);
+  B.respawn(34);
+  B.gate(35, ['techFile', 'euRisk', 'laws'], 'TECHNICAL FILE CHECKPOINT');
+  B.plat(37, 9, 1.5, 3, 0, 3.2);
+  B.ground(42, 58);
+  B.set(44, 7, 'B'); B.box(45, 7, 'badge'); B.set(46, 7, 'B');
+  B.doc('euDoc', 48, 10); B.enemy('bot', 50); B.doc('ce', 52, 10);
+  B.respawn(54); B.sign(54.2, 'TIMED CHECK!');
+  B.timedGate(66, 56, 8, 'TIMED COMPLIANCE CHECK');
+  B.plat(59, 9, 1.5, 1.8, 0, 2.6);
+  B.ground(62, 94);
+  B.story(67, 'Keep your technical documentation organised.');
+  B.doc('euAr', 69, 10);
+  B.gate(72, ['euDoc', 'ce', 'euAr'], 'MARKET ACCESS CHECKPOINT');
+  B.respawn(73); B.enemy('paper', 76, 7, 2); B.spikes(77);
+  B.story(78, 'Euverify helps businesses manage their EU and UK compliance documentation journey.');
+  B.barrier(80); B.doc('euLabel', 82, 10);
+  B.gate(85, ['euLabel'], 'LABELLING CHECKPOINT');
+  B.flag(87);
+  B.finish(89, 'portal', 'GLOBAL MARKET SUCCESS');
 }
 
 const SOLID = new Set(['G', 'B', 'Q', 'U', 'P', 'S', 'X', 'C', 'D']);
@@ -780,7 +731,7 @@ function updatePlayer(dt) {
   for (let cy = y0; cy <= y1; cy++) for (let cx = x0; cx <= x1; cx++) if (tile(cx, cy) === 'K' && p.y + p.h > cy * T + T * 0.45) hurt(true);
   switches.forEach(sw => {
     if (sw.pressed > 0) { sw.pressed -= dt; return; }
-    if (!sw.gate.passed && p.x + p.w > sw.col * T + 4 && p.x < sw.col * T + T - 4 && p.y + p.h >= 11 * T - 2) pressSwitch(sw);
+    if (!sw.gate.passed && p.x + p.w > sw.col * T - 8 && p.x < sw.col * T + T + 8 && p.y + p.h >= 8 * T) pressSwitch(sw);
   });
   if (p.y > VH + 60) die();
 }
@@ -918,10 +869,10 @@ function activateEuverify(cx, cy, fromGuide) {
 }
 function activateScanner() {
   power.scanner = true; power.boost = true; scanT = 0.3;
-  levelTime += 30;
+  levelTime += 5;
   Sound.scan(); Sound.power();
   $('bannerTitle').textContent = 'EUVERIFY POWER ACTIVATED!';
-  $('bannerSub').textContent = 'Technical File Scanner · Knowledge Boost · +30s';
+  $('bannerSub').textContent = 'Technical File Scanner · Knowledge Boost · +5s';
   drawPortrait($('bannerHero'), power.costume ? 'eu' : 'classic', player.strength);
   const b = $('banner'); b.hidden = true; void b.offsetWidth; b.hidden = false;
   state = 'transform'; transformT = 1.35;
@@ -962,6 +913,7 @@ function updateItems(dt) {
     } else {
       const bob = it.type === 'seal' || it.type === 'box' ? 0 : Math.sin(it.t * 3) * 4;
       box = { x: it.x, y: it.baseY + bob, w: it.w, h: it.h };
+      if (it.type === 'doc' && !DOCS[it.doc].bonus) { box.y -= 320; box.h += 320; box.x -= 4; box.w += 8; }
     }
     if (it.hidden) return;
     if (overlap(player, box)) collect(it);
@@ -1050,7 +1002,7 @@ function afterDeath() {
   }
   const keep = { strength: player.strength, cans: player.cans };
   player = newPlayer(respawnX); Object.assign(player, keep);
-  player.inv = 2; levelTime = Math.max(levelTime, 90);
+  player.inv = 2; levelTime = Math.max(levelTime, 15);
   gates.forEach(g => { if (g.kind === 'timed' && g.open && !g.passed) { g.open = false; for (let cy = 0; cy < ROWS; cy++) if (grid[cy][g.col] === 'd') grid[cy][g.col] = 'D'; } });
   camX = Math.max(0, respawnX - VW * 0.35);
   state = 'play'; Sound.startMusic(L.tune); toast('Back at the last checkpoint');
@@ -1058,8 +1010,8 @@ function afterDeath() {
 }
 
 function levelComplete() {
-  state = 'levelDone'; doneT = 2.2; Sound.stopMusic(); Sound.fanfare();
-  const tb = Math.floor(levelTime) * 10; score += tb;
+  state = 'levelDone'; doneT = 1.6; Sound.stopMusic(); Sound.fanfare();
+  const tb = Math.floor(levelTime) * 50; score += tb;
   $('bannerTitle').textContent = (L.key === 'EU' ? 'GLOBAL MARKET REACHED!' : 'LEVEL COMPLETE!');
   $('bannerSub').textContent = 'Time bonus +' + tb + ' · Documents ' + [...docsGot].filter(d => !DOCS[d].bonus).length + '/' + levelDocs();
   drawPortrait($('bannerHero'), power.costume ? 'eu' : 'classic', player.strength);
@@ -1102,7 +1054,7 @@ function startCine(kind) {
   state = 'cine'; Sound.stopMusic(); clearInfo();
   hideScreens(); $('hud').hidden = true; $('touch').hidden = true; $('finalScreen').hidden = true;
   cine = { kind, t: 0, cues: {} };
-  cine.dur = { intro: 5.2, toUK: 7.6, toEU: 7.6, final: 1e9 }[kind];
+  cine.dur = { intro: 3.6, toUK: 5.4, toEU: 5.4, final: 1e9 }[kind];
   $('btnSkip').hidden = kind === 'final';
   $('mapCaption').hidden = false;
   if (kind === 'final') { Sound.finale(); finalParticles = []; }
@@ -1115,15 +1067,15 @@ function updateCine(dt) {
   const k = cine.kind, t = cine.t;
   if (k === 'intro') {
     cue('a', 0, () => caption('Stage 1 · Where it starts', 'INDIA'));
-    cue('b', 1.4, () => { Sound.ding(); caption('Your business journey begins', 'IN INDIA!'); });
+    cue('b', 0.9, () => { Sound.ding(); caption('Your business journey begins', 'IN INDIA!'); });
   } else if (k === 'toUK') {
     cue('a', 0, () => { Sound.ding(); caption('Level 1 complete', 'NEXT STOP: UNITED KINGDOM'); });
-    cue('b', 1.0, () => { Sound.plane(); caption('Exporting your product', 'INDIA  ✈  UNITED KINGDOM'); });
-    cue('c', 3.9, () => { Sound.ding(); caption('Arriving in', 'THE UNITED KINGDOM'); });
+    cue('b', 0.6, () => { Sound.plane(); caption('Exporting your product', 'INDIA  ✈  UNITED KINGDOM'); });
+    cue('c', 2.6, () => { Sound.ding(); caption('Arriving in', 'THE UNITED KINGDOM'); });
   } else if (k === 'toEU') {
     cue('a', 0, () => { Sound.ding(); caption('Level 2 complete', 'NEXT STOP: EUROPEAN UNION'); });
-    cue('b', 1.0, () => { Sound.plane(); caption('Expanding further', 'UNITED KINGDOM  ✈  EUROPEAN UNION'); });
-    cue('c', 3.9, () => { Sound.ding(); caption('Arriving in', 'THE EUROPEAN UNION'); });
+    cue('b', 0.6, () => { Sound.plane(); caption('Expanding further', 'UNITED KINGDOM  ✈  EUROPEAN UNION'); });
+    cue('c', 2.6, () => { Sound.ding(); caption('Arriving in', 'THE EUROPEAN UNION'); });
   } else if (k === 'final') {
     cue('a', 0, () => caption('Your journey', 'INDIA → UK → EU → THE WORLD'));
     cue('b', 3.2, () => { $('mapCaption').hidden = true; $('finalScore').textContent = 'Final score ' + String(score).padStart(6, '0'); $('finalScreen').hidden = false; });
@@ -1145,23 +1097,23 @@ function drawCine() {
   const k = cine.kind, t = cine.t, W = VW, H = VH;
   let view, o = { t: frameT };
   if (k === 'intro') {
-    const z = ease(clamp((t - 1.6) / 2.6, 0, 1));
+    const z = ease(clamp((t - 0.9) / 2.0, 0, 1));
     view = lerpView(VIEWS.world, VIEWS.india, z);
-    o.hl = { IN: clamp(t / 1.2, 0, 1) };
+    o.hl = { IN: clamp(t / 0.8, 0, 1) };
     o.pins = [{ at: 'MUM', label: 'India', flag: 'IN' }];
   } else if (k === 'toUK' || k === 'toEU') {
     const uk = k === 'toUK';
     const r = uk ? { a: 'MUM', b: 'LON', bulge: 0.22 } : { a: 'LON', b: 'BRU', bulge: 0.45 };
     const start = uk ? VIEWS.inUk : VIEWS.ukEu, end = uk ? VIEWS.uk : VIEWS.euZoom;
-    const intro = uk ? lerpView(VIEWS.india, VIEWS.inUk, ease(clamp(t / 1.0, 0, 1))) : lerpView(VIEWS.uk, VIEWS.ukEu, ease(clamp(t / 1.0, 0, 1)));
-    const prog = ease(clamp((t - 1.0) / 2.8, 0, 1));
-    const z = ease(clamp((t - 4.9) / 1.9, 0, 1));
-    view = t < 1.0 ? intro : lerpView(start, end, z);
-    o.hl = uk ? { IN: 1 - 0.4 * z, GB: ease(clamp((t - 3.8) / 0.8, 0, 1)) } : { IN: 0.6, GB: 1 - 0.3 * z, EU: ease(clamp((t - 3.8) / 0.8, 0, 1)) };
+    const intro = uk ? lerpView(VIEWS.india, VIEWS.inUk, ease(clamp(t / 0.6, 0, 1))) : lerpView(VIEWS.uk, VIEWS.ukEu, ease(clamp(t / 0.6, 0, 1)));
+    const prog = ease(clamp((t - 0.6) / 2.0, 0, 1));
+    const z = ease(clamp((t - 3.2) / 1.5, 0, 1));
+    view = t < 0.6 ? intro : lerpView(start, end, z);
+    o.hl = uk ? { IN: 1 - 0.4 * z, GB: ease(clamp((t - 2.6) / 0.6, 0, 1)) } : { IN: 0.6, GB: 1 - 0.3 * z, EU: ease(clamp((t - 2.6) / 0.6, 0, 1)) };
     o.routes = uk ? [{ ...r, prog }] : [{ a: 'MUM', b: 'LON', bulge: 0.22, prog: 1, color: 'rgba(195,255,102,0.45)' }, { ...r, prog }];
-    if (t > 1.0 && t < 4.4) { o.plane = { r, t: prog }; o.planeScale = uk ? 1.1 : 1.3; }
-    o.pins = uk ? [{ at: 'MUM', label: 'India', flag: 'IN', below: true }, ...(t > 3.8 ? [{ at: 'LON', label: 'United Kingdom', flag: 'GB' }] : [])]
-                : [{ at: 'LON', label: 'United Kingdom', flag: 'GB' }, ...(t > 3.8 ? [{ at: 'BRU', label: 'European Union', flag: 'EU', below: true }] : [])];
+    if (t > 0.6 && t < 3.0) { o.plane = { r, t: prog }; o.planeScale = uk ? 1.1 : 1.3; }
+    o.pins = uk ? [{ at: 'MUM', label: 'India', flag: 'IN', below: true }, ...(t > 2.6 ? [{ at: 'LON', label: 'United Kingdom', flag: 'GB' }] : [])]
+                : [{ at: 'LON', label: 'United Kingdom', flag: 'GB' }, ...(t > 2.6 ? [{ at: 'BRU', label: 'European Union', flag: 'EU', below: true }] : [])];
   } else {
     // final
     view = lerpView(VIEWS.eu, VIEWS.final, ease(clamp(t / 2.2, 0, 1)));
@@ -1666,7 +1618,14 @@ function drawItem(it) {
   else if (it.type === 'canister') drawCanister(x, y, it.t);
   else if (it.type === 'badge') drawBadge(cx, cy, it.t);
   else if (it.type === 'life') drawHeart(cx, cy, 13, '1UP');
-  else if (it.type === 'doc') drawDoc(x, y, it);
+  else if (it.type === 'doc') {
+    if (!DOCS[it.doc].bonus) {
+      const g = ctx.createLinearGradient(0, y - 150, 0, y + 20);
+      g.addColorStop(0, 'rgba(195,255,102,0)'); g.addColorStop(1, `rgba(195,255,102,${0.22 + Math.sin(it.t * 4) * 0.08})`);
+      ctx.fillStyle = g; ctx.fillRect(x + 2, y - 150, it.w - 4, 170);
+    }
+    drawDoc(x, y, it);
+  }
 }
 function drawSeal(cx, cy, spin) {
   const sx = Math.max(0.25, Math.abs(spin));
